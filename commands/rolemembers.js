@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction, userMention } = require('discord.js');
 
 
-const cmd = {
+module.exports = {
     data: new SlashCommandBuilder()
         .setName('role-members')
         .setDescription('List all of the members with the specified role')
@@ -30,6 +30,3 @@ const cmd = {
         await interaction.reply({embeds: [embed]});
     }
 };
-
-
-module.exports = cmd;

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 
-const cmd = {
+module.exports = {
     data: new SlashCommandBuilder()
         .setName('avatar')
         .setDescription('Shows the selected user\'s information')
@@ -23,7 +23,4 @@ const cmd = {
 
         await interaction.reply({embeds: [embed]});
     }
-}
-
-
-module.exports = cmd;
+};
