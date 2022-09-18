@@ -3,7 +3,7 @@ const discord = require('discord.js');
 const { GatewayIntentBits, Collection } = discord;
 
 require('dotenv').config();
-const TOKEN = process.env.SURTR;
+const TOKEN = process.env.TOKEN;
 
 
 // CLIENT SETUP ///////////////////////////////////////////////////////////////////////////////////
@@ -31,20 +31,31 @@ client.once('ready', function() {
 
 
 client.on('interactionCreate', async interaction => {
-    if (!interaction.isChatInputCommand()) {
-        return;
+    if (interaction.isChatInputCommand()) {
+        const command = client.commands.get(interaction.commandName);
+        if (!command) {
+            return;
+        }
+    
+        try {
+            await command.execute(interaction);
+        } catch (err) {
+            console.error(err);
+            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        }
     }
+    else if (interaction.isSelectMenu()) {
+        const command = client.commands.get(interaction.message.interaction.commandName);
+        if (!command) {
+            return;
+        }
 
-    const command = client.commands.get(interaction.commandName);
-    if (!command) {
-        return;
-    }
-
-    try {
-        await command.execute(interaction);
-    } catch (err) {
-        console.error(err);
-        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        try {
+            await command.update(interaction);
+        } catch (err) {
+            console.error(err);
+            await interaction.reply({ content: 'There was an error while updating the message!', ephemeral: true });
+        }
     }
 });
 
