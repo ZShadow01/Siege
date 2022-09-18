@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder, channelMention } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, channelMention } = require('discord.js');
 
 
 module.exports = {
@@ -17,7 +17,6 @@ module.exports = {
         ),
 
     execute: async interaction => {
-        if (!(interaction instanceof ChatInputCommandInteraction)) return;
         const channel = interaction.options.getChannel('channel') || interaction.channel;
         const text = interaction.options.getString('text');
 

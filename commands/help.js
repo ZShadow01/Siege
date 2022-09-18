@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, SelectMenuBuilder, ActionRowBuilder, ChatInputCommandInteraction } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, SelectMenuBuilder, ActionRowBuilder } = require('discord.js');
 
 
 module.exports = {
@@ -43,6 +43,7 @@ module.exports = {
         const options = command.data.options;
         var params = '';
         for (const option of options) {
+            params += ' ';
             if (option.required) {
                 params += `<${option.name}>`;
             } else {
@@ -53,11 +54,11 @@ module.exports = {
         // New embed display
         const embed = new EmbedBuilder()
             .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
-            .setDescription('Command: **' + command.data.name + '**')
+            .setDescription('Command: `' + command.data.name + '`')
             .addFields(
                 {
                     name: 'Usage',
-                    value: '/' + command.data.name + (params ? ' ' + params : '')
+                    value: '`/' + command.data.name + params + '`'
                 },
                 {
                     name: 'Description',
