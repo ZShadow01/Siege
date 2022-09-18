@@ -1,25 +1,30 @@
-const discord = require('discord.js');
-const { GatewayIntentBits } = discord;
+const { Client, GatewayIntentBits } = require('discord.js');
 
 require('dotenv').config();
 const TOKEN = process.env.TOKEN;
-
-const events = require('./events');
-
 
 // Client setup
 const intents = [
     GatewayIntentBits.Guilds, 
     GatewayIntentBits.GuildMembers
 ];
-var client = new discord.Client({intents: intents});
+var client = new Client({intents: intents});
 
 
-// Initialize events
-events.initializeEvents(client);
+// Import commands
+const commandsPath = './commands';
+client.commands = require('./commands.js')(commandsPath);
+
+
+// Import events
+const eventsPath = './events';
+const events = require('./events.js')(eventsPath);
+
 
 // Events
-client.once('ready', events.ready);
-client.on('interactionCreate', events.interactionCreate);
+client.once('ready', async () => await events.ready(client));
+client.on('interactionCreate', async interaction => await events.interactionCreate(client, interaction));
 
+
+// Run
 client.login(TOKEN);
