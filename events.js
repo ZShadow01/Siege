@@ -5,7 +5,7 @@ var client;
 
 
 function initializeEvents(c) {
-    client = c;
+    client = c;  // Important!
     client.commands = new discord.Collection();
     const commandsPath = __dirname + '/commands';
     const commandFiles = fs.readdirSync(commandsPath).filter(f => f.endsWith('.js'));
@@ -36,6 +36,7 @@ async function interactionCreate(interaction) {
             await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
         }
     }
+
     else if (interaction.isSelectMenu()) {
         const command = client.commands.get(interaction.message.interaction.commandName);
         if (!command) return;

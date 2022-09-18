@@ -19,6 +19,7 @@ module.exports = {
             .setTitle(role.name)
             .setColor(role.hexColor);
 
+        // Get all members with the specified role
         var description = `**[${role.members.size}]** - members\n\n`;
         role.members.forEach(member => {
             description += userMention(member.id) + '\n';

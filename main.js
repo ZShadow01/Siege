@@ -7,7 +7,7 @@ const TOKEN = process.env.TOKEN;
 const events = require('./events');
 
 
-// CLIENT SETUP ///////////////////////////////////////////////////////////////////////////////////
+// Client setup
 const intents = [
     GatewayIntentBits.Guilds, 
     GatewayIntentBits.GuildMembers
@@ -15,12 +15,11 @@ const intents = [
 var client = new discord.Client({intents: intents});
 
 
-// EVENTS /////////////////////////////////////////////////////////////////////////////////////////
 // Initialize events
 events.initializeEvents(client);
 
+// Events
 client.once('ready', events.ready);
-
 client.on('interactionCreate', events.interactionCreate);
 
 client.login(TOKEN);
