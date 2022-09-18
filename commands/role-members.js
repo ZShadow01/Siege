@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction, userMention } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, userMention } = require('discord.js');
 
 
 module.exports = {
@@ -12,8 +12,6 @@ module.exports = {
         ),
 
     execute: async interaction => {
-        if (!(interaction instanceof ChatInputCommandInteraction)) return
-
         const role = interaction.options.getRole('role');
 
         let embed = new EmbedBuilder()
